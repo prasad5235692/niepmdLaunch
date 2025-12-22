@@ -141,7 +141,8 @@ canvas,
   letter-spacing: 2px;
   text-shadow:
     0 0 20px rgba(255,255,255,0.4),
-    0 0 40px rgba(0,200,255,0.3);
+    0 0 40px rgba(0,200,255,0.3),
+    0 0 2px rgba(255,255,255,0.9);
   animation: pulseGlow 3s ease-in-out infinite;
 }
 .title-glow1 {
@@ -153,9 +154,41 @@ canvas,
   letter-spacing: 2px;
   text-shadow:
     0 0 20px rgba(255,255,255,0.4),
-    0 0 40px rgba(0,200,255,0.3);
+    0 0 40px rgba(0,200,255,0.3),
+     0 0 2px rgba(255,255,255,0.9);
   animation: pulseGlow 3s ease-in-out infinite;
 }
+.stars-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+    radial-gradient(1px 1px at 50% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 90% 70%, #fff, transparent);
+  background-size: 200px 200px;
+  animation: starsMerge 18s linear infinite;
+  opacity: 0.85;
+}
+
+@keyframes starsMerge {
+  0% {
+    transform: scale(1.15) translateZ(0);
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(0.85) translateZ(0);
+    opacity: 0.4;
+  }
+}
+
+
 
 @keyframes pulseGlow {
   0%, 100% { opacity: 0.9; }

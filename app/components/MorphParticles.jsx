@@ -276,7 +276,7 @@ const buttonVariants = {
   return (
 <>
 
-  <div ref={containerRef} className="canvas-layer" />
+  <div ref={containerRef} className="canvas-layer ,stars-layer" />
   <AnimatePresence>
     {showAmbient && (
       <motion.div
