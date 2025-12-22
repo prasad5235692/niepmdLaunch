@@ -1,6 +1,5 @@
-
-import MorphParticles from './components/MorphParticles';
-
+import MorphParticlesPage from "./MorphParticles/page";
+export const dynamic = 'force-dynamic';
 export default function Home() {
-  return <MorphParticles />;
+  return <MorphParticlesPage />;
 }
