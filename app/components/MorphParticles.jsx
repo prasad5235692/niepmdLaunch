@@ -10,6 +10,7 @@ import './morphParticles.css';
 export default function MorphParticles() {
   const containerRef = useRef();
   const router = useRouter();
+  
 
   useEffect(() => {
     const sketch = (p) => {
@@ -220,16 +221,19 @@ return () => {
     const myP5 = new p5(sketch, containerRef.current);
     return () => myP5.remove();
   }, []);
-  
-  const [phase, setPhase] = useState('welcome'); 
+  const [showAmbient, setShowAmbient] = useState(true);
+ const [phase, setPhase] = useState('welcome');
 
-  useEffect(() => {
-    const timer1 = setTimeout(() => {
-      setPhase('coming');
-    }, 3085); 
+useEffect(() => {
+  const timer1 = setTimeout(() => {
+    setPhase('coming');
+  }, 3085);
 
-    return () => clearTimeout(timer1);
-  }, []);
+  return () => clearTimeout(timer1);
+}, []);
+
+
+
   const overlayVariants = {
   hidden: { opacity: 0, scale: 0.96, y: 30 },
   visible: {
@@ -270,26 +274,33 @@ const buttonVariants = {
 
 
   return (
-     <>
+<>
+
   <div ref={containerRef} className="canvas-layer" />
-  <div className="ambient-bg" />
+  <AnimatePresence>
+    {phase === "welcome" && (
+      <motion.div
+        key="ambient"
+        className="ambient-bg"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1.4, ease: "easeInOut" }}
+      />
+    )}
+  </AnimatePresence>
+
 
   <AnimatePresence mode="wait">
-    {phase === "welcome" && (
+     {showAmbient && (
       <motion.div
         key="welcome"
         className="glass-overlay"
-        variants={overlayVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
       >
-        <motion.h1
-          className="title-glow"
-          variants={textVariants}
-          initial="hidden"
-          animate="visible"
-        >
+        <motion.h1 className="title-glow">
           Welcome
         </motion.h1>
       </motion.div>
