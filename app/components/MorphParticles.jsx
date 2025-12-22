@@ -221,17 +221,17 @@ return () => {
     const myP5 = new p5(sketch, containerRef.current);
     return () => myP5.remove();
   }, []);
-  const [showAmbient, setShowAmbient] = useState(true);
- const [phase, setPhase] = useState('welcome');
+ const [phase, setPhase] = useState("welcome");
+const [showAmbient, setShowAmbient] = useState(true);
 
 useEffect(() => {
-  const timer1 = setTimeout(() => {
-    setPhase('coming');
+  const t1 = setTimeout(() => {
+    setShowAmbient(false);   
+    setPhase("coming");      
   }, 3085);
 
-  return () => clearTimeout(timer1);
+  return () => clearTimeout(t1);
 }, []);
-
 
 
   const overlayVariants = {
@@ -299,6 +299,7 @@ const buttonVariants = {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+         transition={{ duration: 1.4, ease: "easeInOut" }}
       >
         <motion.h1 className="title-glow">
           Welcome
