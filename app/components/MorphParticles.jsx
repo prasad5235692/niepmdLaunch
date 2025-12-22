@@ -278,7 +278,7 @@ const buttonVariants = {
 
   <div ref={containerRef} className="canvas-layer" />
   <AnimatePresence>
-    {phase === "welcome" && (
+    {showAmbient && (
       <motion.div
         key="ambient"
         className="ambient-bg"
