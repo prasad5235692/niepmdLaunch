@@ -344,7 +344,7 @@ const buttonVariants = {
       alt="Honble Secretary"
       fill
       priority
-      className="top-image"
+      className="top-image size-00"
     />
   </div>
 
