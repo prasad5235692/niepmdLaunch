@@ -357,7 +357,7 @@ const buttonVariants = {
   >
     < motion.h2 >HON’BLE SECRETARY</ motion.h2>
     <motion.h1 className="title-glow">Ms. V. VIDYAVATHI, IAS</motion.h1>
-    <motion.p>
+    <motion.p className="title-glow ">
       Department of Empowerment of Persons with Disabilities <br />
       Ministry of Social Justice & Empowerment <br />
       Government of India
