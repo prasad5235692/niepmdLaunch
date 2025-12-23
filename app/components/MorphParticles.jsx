@@ -172,11 +172,11 @@ return () => {
 };
 
       };
-
-      p.draw = () => {
+ p.draw = () => {
        p.colorMode(p.RGB, 255, 255, 255, 1);
 p.background(20, 0, 60, 1); 
-p.colorMode(p.HSB, 360, 100, 100, 1);
+p.colorMode(p.HSB, 360, 100, 100, 1);     
+
 
         p.translate(p.width / 2, p.height / 2);
 

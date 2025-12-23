@@ -136,8 +136,17 @@ export default function BlackHole() {
 
     function loop() {
       currentTime = (Date.now() - startTime) / 50;
-      context.fillStyle = 'rgba(0,0,0,0.2)';
-      context.fillRect(0, 0, cw, ch);
+    const gradient = context.createConicGradient(0, centerx, centery);
+gradient.addColorStop(0, 'rgb(20, 0, 60)');    
+gradient.addColorStop(0.25, 'rgb(25, 0, 70)');    
+gradient.addColorStop(0.5, 'rgb(40, 0, 100)');    
+gradient.addColorStop(0.75, 'rgb(25, 0, 70)');    
+gradient.addColorStop(1, 'rgb(20, 0, 60)');       
+
+
+context.fillStyle = gradient;
+context.fillRect(0, 0, cw, ch);
+
       stars.forEach((s) => s.draw());
       requestAnimationFrame(loop);
     }
