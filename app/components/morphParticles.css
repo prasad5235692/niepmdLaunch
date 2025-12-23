@@ -8,7 +8,7 @@ html, body {
   width: 100%;
   height: 100%;
   margin: 0;
-  background: #000;
+  background: #340094;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
 }
@@ -21,9 +21,9 @@ body::before {
   z-index: 0;
   background: conic-gradient(
     from 0deg,
-    rgba(255,255,255,0) 0%,
+    rgb(39, 0, 179) 0%,
     #ffffff 50%,
-    rgba(255,255,255,0) 100%
+    rgb(37, 0, 201) 100%
   );
   filter: blur(120px);
   animation: rotateGlow 12s linear infinite;
@@ -226,4 +226,90 @@ canvas,
   box-shadow:
     0 0 60px rgba(0,200,255,0.6),
     inset 0 0 25px rgba(255,255,255,0.15);
+}
+.glass-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  height: 220px;
+  margin-top: 20px;       
+  margin-bottom: 1.5rem;  
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.top-image {
+  object-fit: cover;
+  margin-top: 30px;   
+}
+
+
+
+.image-text-below {
+  text-align: center;
+  margin: 1rem 0 1.5rem;
+}
+
+.image-text-below h2 {
+  font-size: 0.85rem;   
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.image-text-below h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0.3rem 0;
+}
+
+.image-text-below p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.image-text-below p strong {
+  font-weight: 800;
+
+}
+
+
+.image-text-below {
+  text-align: center;
+  margin: 1rem 0 1.5rem;
+}
+
+.image-text-below h2 {
+  font-size: 0.85rem;   
+  letter-spacing: 2px;
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
+.image-text-below h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0.3rem 0;
+}
+
+.image-text-below p {
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.image-text-below p strong {
+  font-weight: 600;
 }

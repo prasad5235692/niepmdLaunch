@@ -196,18 +196,28 @@ function triggerExpanse() {
   return (
     <>
   
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 0,
-          background:
-            'conic-gradient(from 0deg, rgba(255,255,255,0) 0%, #ffffff 50%, rgba(255,255,255,0) 100%)',
-          filter: 'blur(120px)',
-          animation: 'rotateGlow 12s linear infinite',
-          pointerEvents: 'none',
-        }}
-      ></div>
+ <div
+  style={{
+    position: 'fixed',
+    inset: 0,
+    width: '200%',
+    height: '200%',
+    zIndex: 0,
+    background: `conic-gradient(
+      from 0deg,
+      #14003c 0%,
+      #50007c 25%,
+      #6400ff 50%,
+      #50007c 75%,
+      #14003c 100%
+    )`,
+    filter: 'blur(80px)',
+    animation: 'rotateGlow 12s linear infinite',
+    pointerEvents: 'none',
+  }}
+></div>
+
+
 
       {/* Canvas container */}
       <div

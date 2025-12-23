@@ -2,6 +2,7 @@
 'use client';
 
 import { useEffect,useState , useRef } from 'react';
+import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import p5 from 'p5';
 import { motion, AnimatePresence } from "framer-motion";
@@ -173,7 +174,10 @@ return () => {
       };
 
       p.draw = () => {
-        p.background(0, 0, 0, 0.25);
+       p.colorMode(p.RGB, 255, 255, 255, 1);
+p.background(20, 0, 60, 1); 
+p.colorMode(p.HSB, 360, 100, 100, 1);
+
         p.translate(p.width / 2, p.height / 2);
 
         if (isMorphing) {
@@ -334,6 +338,31 @@ const buttonVariants = {
         >
           A new experience is launching
         </motion.p>
+         <div className="image-wrapper">
+    <Image
+      src="/assest/image/photo .webp"
+      alt="Honble Secretary"
+      fill
+      priority
+      className="top-image"
+    />
+  </div>
+
+
+  <motion.div
+    className="image-text-below"
+    variants={textVariants}
+    initial="hidden"
+    animate="visible"
+  >
+    < motion.h2 >HON’BLE SECRETARY</ motion.h2>
+    <motion.h1 className="title-glow">Ms. V. VIDYAVATHI, IAS</motion.h1>
+    <motion.p>
+      Department of Empowerment of Persons with Disabilities <br />
+      Ministry of Social Justice & Empowerment <br />
+      Government of India
+    </motion.p>
+  </motion.div>
 
         <motion.button
           className="launch-btn"
