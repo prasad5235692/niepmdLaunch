@@ -1,17 +1,15 @@
+"use client";
 
-'use client';
-
-import { useEffect,useState , useRef } from 'react';
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
-import p5 from 'p5';
+import { useRouter } from "next/navigation";
+import p5 from "p5";
 import { motion, AnimatePresence } from "framer-motion";
-import './morphParticles.css'; 
+import "./morphParticles.css";
 
 export default function MorphParticles() {
   const containerRef = useRef();
   const router = useRouter();
-  
 
   useEffect(() => {
     const sketch = (p) => {
@@ -20,12 +18,11 @@ export default function MorphParticles() {
       const MAX_FORCE = 0.9;
       const MORPH_DURATION = 45;
 
-const CIRCLE = 0;
-const SQUARE = 1;
-const TRIANGLE = 2;
-const STAR = 3;
-const TOTAL_SHAPES = 4;
-
+      const CIRCLE = 0;
+      const SQUARE = 1;
+      const TRIANGLE = 2;
+      const STAR = 3;
+      const TOTAL_SHAPES = 4;
 
       let particles = [];
       let SHAPE_RADIUS;
@@ -89,7 +86,7 @@ const TOTAL_SHAPES = 4;
         let y = radius * t * Math.sign(Math.cos(a));
         if (Math.abs(y) > radius) {
           y = radius * Math.sign(y);
-          x = radius / t * Math.sign(y);
+          x = (radius / t) * Math.sign(y);
         }
         return p.createVector(x, y);
       };
@@ -99,13 +96,13 @@ const TOTAL_SHAPES = 4;
         let a = angle % (Math.PI * 2);
         if (a < 0) a += Math.PI * 2;
 
-        const sideIndex = Math.floor(a / (Math.PI * 2 / 3));
-        const angleOnSide = a % (Math.PI * 2 / 3);
+        const sideIndex = Math.floor(a / ((Math.PI * 2) / 3));
+        const angleOnSide = a % ((Math.PI * 2) / 3);
 
-        const p1 = p.createVector(Math.cos(sideIndex * Math.PI * 2 / 3), Math.sin(sideIndex * Math.PI * 2 / 3)).mult(radius);
-        const p2 = p.createVector(Math.cos((sideIndex + 1) * Math.PI * 2 / 3), Math.sin((sideIndex + 1) * Math.PI * 2 / 3)).mult(radius);
+        const p1 = p.createVector(Math.cos((sideIndex * Math.PI * 2) / 3), Math.sin((sideIndex * Math.PI * 2) / 3)).mult(radius);
+        const p2 = p.createVector(Math.cos(((sideIndex + 1) * Math.PI * 2) / 3), Math.sin(((sideIndex + 1) * Math.PI * 2) / 3)).mult(radius);
 
-        return p5.Vector.lerp(p1, p2, angleOnSide / (Math.PI * 2 / 3));
+        return p5.Vector.lerp(p1, p2, angleOnSide / ((Math.PI * 2) / 3));
       };
 
       const getStarPos = (angle, radius) => {
@@ -118,8 +115,8 @@ const TOTAL_SHAPES = 4;
 
         const startAngleOfSegment = segment * angleStep;
 
-        const r1 = (segment % 2 === 0) ? outerRadius : innerRadius;
-        const r2 = (segment % 2 === 0) ? innerRadius : outerRadius;
+        const r1 = segment % 2 === 0 ? outerRadius : innerRadius;
+        const r2 = segment % 2 === 0 ? innerRadius : outerRadius;
 
         const p1_angle = startAngleOfSegment;
         const p2_angle = startAngleOfSegment + angleStep;
@@ -132,16 +129,20 @@ const TOTAL_SHAPES = 4;
         return p5.Vector.lerp(p1, p2, t);
       };
 
-    function getShapePosition(shape, angle, radius) {
-  switch (shape) {
-    case CIRCLE:   return getCirclePos(angle, radius);
-    case SQUARE:   return getSquarePos(angle, radius);
-    case TRIANGLE: return getTrianglePos(angle, radius);
-    case STAR:     return getStarPos(angle, radius);
-    default:       return p.createVector(0, 0);
-  }
-}
-
+      function getShapePosition(shape, angle, radius) {
+        switch (shape) {
+          case CIRCLE:
+            return getCirclePos(angle, radius);
+          case SQUARE:
+            return getSquarePos(angle, radius);
+          case TRIANGLE:
+            return getTrianglePos(angle, radius);
+          case STAR:
+            return getStarPos(angle, radius);
+          default:
+            return p.createVector(0, 0);
+        }
+      }
 
       const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
@@ -158,25 +159,23 @@ const TOTAL_SHAPES = 4;
           particles.push(particle);
         }
 
-const interval = setInterval(() => {
-  if (!isMorphing) {
-    isMorphing = true;
-    morphFrame = 0;
-    targetShape = (currentShape + 1) % TOTAL_SHAPES;
-  }
-}, 800);
+        const interval = setInterval(() => {
+          if (!isMorphing) {
+            isMorphing = true;
+            morphFrame = 0;
+            targetShape = (currentShape + 1) % TOTAL_SHAPES;
+          }
+        }, 800);
 
-return () => {
-  myP5.remove();
-  clearInterval(interval);
-};
-
+        return () => {
+          myP5.remove();
+          clearInterval(interval);
+        };
       };
- p.draw = () => {
-       p.colorMode(p.RGB, 255, 255, 255, 1);
-p.background(20, 0, 60, 1); 
-p.colorMode(p.HSB, 360, 100, 100, 1);     
-
+      p.draw = () => {
+        p.colorMode(p.RGB, 255, 255, 255, 1);
+        p.background(20, 0, 60, 1);
+        p.colorMode(p.HSB, 360, 100, 100, 1);
 
         p.translate(p.width / 2, p.height / 2);
 
@@ -225,160 +224,106 @@ p.colorMode(p.HSB, 360, 100, 100, 1);
     const myP5 = new p5(sketch, containerRef.current);
     return () => myP5.remove();
   }, []);
- const [phase, setPhase] = useState("welcome");
-const [showAmbient, setShowAmbient] = useState(true);
+  const [phase, setPhase] = useState("welcome");
+  const [showAmbient, setShowAmbient] = useState(true);
 
-useEffect(() => {
-  const t1 = setTimeout(() => {
-    setShowAmbient(false);   
-    setPhase("coming");      
-  }, 3085);
+  useEffect(() => {
+    const t1 = setTimeout(() => {
+      setShowAmbient(false);
+      setPhase("coming");
+    }, 3085);
 
-  return () => clearTimeout(t1);
-}, []);
-
+    return () => clearTimeout(t1);
+  }, []);
 
   const overlayVariants = {
-  hidden: { opacity: 0, scale: 0.96, y: 30 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1],
+    hidden: { opacity: 0, scale: 0.96, y: 30 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+      },
     },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    y: -20,
-    transition: { duration: 0.5 },
-  },
-};
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      y: -20,
+      transition: { duration: 0.5 },
+    },
+  };
 
-const textVariants = {
-  hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.8, delay: 0.2 },
-  },
-};
+  const textVariants = {
+    hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 0.8, delay: 0.2 },
+    },
+  };
 
-const buttonVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.6, delay: 0.6 },
-  },
-};
-
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, delay: 0.6 },
+    },
+  };
 
   return (
-<>
+    <>
+      <div ref={containerRef} className="canvas-layer ,stars-layer" />
+      <AnimatePresence>{showAmbient && <motion.div key="ambient" className="ambient-bg" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.4, ease: "easeInOut" }} />}</AnimatePresence>
 
-  <div ref={containerRef} className="canvas-layer ,stars-layer" />
-  <AnimatePresence>
-    {showAmbient && (
-      <motion.div
-        key="ambient"
-        className="ambient-bg"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1.4, ease: "easeInOut" }}
-      />
-    )}
-  </AnimatePresence>
+      <AnimatePresence mode="wait">
+        {showAmbient && (
+          <motion.div key="welcome" className="glass-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.4, ease: "easeInOut" }}>
+            <motion.h1 className="title-glow">Welcome</motion.h1>
+          </motion.div>
+        )}
 
+        {phase === "coming" && (
+          <motion.div key="coming" className="glass-overlay" variants={overlayVariants} initial="hidden" animate="visible" exit="exit">
+            <motion.h1 className="title-glow1 font-semibold" variants={textVariants} initial="hidden" animate="visible">
+              Launch of Online Portal of Recruitment, Course Admission and Student Management Systems
+            </motion.h1>
 
-  <AnimatePresence mode="wait">
-     {showAmbient && (
-      <motion.div
-        key="welcome"
-        className="glass-overlay"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-         transition={{ duration: 1.4, ease: "easeInOut" }}
-      >
-        <motion.h1 className="title-glow">
-          Welcome
-        </motion.h1>
-      </motion.div>
-    )}
+            <motion.p className="subtitle" variants={textVariants} initial="hidden" animate="visible">
+              A new experience is launching
+            </motion.p>
+            <div className="size-70">
+              <Image
+                src="/assest/image/photo .webp"
+                alt="Honble Secretary"
+                // fill
+                width={300}
+                height={300}
+                priority
+                // className="top-image"
+                className="object-cover mt-7!"
+              />
+            </div>
 
-    {phase === "coming" && (
-      <motion.div
-        key="coming"
-        className="glass-overlay"
-        variants={overlayVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-      >
-        <motion.h1
-          className="title-glow1 font-semibold"
-          variants={textVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          Launch of Online Portal of Recruitment, Course Admission and Student
-          Management Systems
-        </motion.h1>
+            <motion.div className="image-text-below" variants={textVariants} initial="hidden" animate="visible">
+              <motion.h2 className="text-white!">HON’BLE SECRETARY</motion.h2>
+              <motion.h1 className="title-glow">Ms. V. VIDYAVATHI, IAS</motion.h1>
+              <motion.p className="text-white!" >
+                Department of Empowerment of Persons with Disabilities <br />
+                Ministry of Social Justice & Empowerment <br />
+                Government of India
+              </motion.p>
+            </motion.div>
 
-        <motion.p
-          className="subtitle"
-          variants={textVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          A new experience is launching
-        </motion.p>
-         <div className="image-wrapper">
-    <Image
-      src="/assest/image/photo .webp"
-      alt="Honble Secretary"
-      fill
-      priority
-      className="top-image"
-    />
-  </div>
-
-
-  <motion.div
-    className="image-text-below"
-    variants={textVariants}
-    initial="hidden"
-    animate="visible"
-  >
-    < motion.h2 >HON’BLE SECRETARY</ motion.h2>
-    <motion.h1 className="title-glow">Ms. V. VIDYAVATHI, IAS</motion.h1>
-    <motion.p>
-      Department of Empowerment of Persons with Disabilities <br />
-      Ministry of Social Justice & Empowerment <br />
-      Government of India
-    </motion.p>
-  </motion.div>
-
-        <motion.button
-          className="launch-btn"
-          variants={buttonVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.96 }}
-          onClick={() => router.push("/countdown")}
-        >
-          Launch Website
-        </motion.button>
-      </motion.div>
-    )}
-  </AnimatePresence>
-</>
-
+            <motion.button className="launch-btn" variants={buttonVariants} initial="hidden" animate="visible" whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.96 }} onClick={() => router.push("/countdown")}>
+              Launch Website
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
